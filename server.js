@@ -40,7 +40,7 @@ app.get('/api/departments', (req, res) => {
 
 // Add departments
 app.post('/api/new-department', ({body}, res) => {
-    var sqlQuery = `INSERT INTO departments(name)
+    var sqlQuery = `INSERT INTO departments(department_name)
     VALUES(?)`;
     db.query(sqlQuery, body.name, (err, result) => {
         try{
@@ -114,12 +114,12 @@ app.post('/api/new-employee', (req, res) => {
     var sqlQuery = `INSERT INTO employees(first_name, last_name, role_id, manager_id)
     VALUES(?, ?, ?, ?)`;
     const {
-        employee_firstname, 
-        employee_lastname,
-        employee_role,
-        employee_manager
+        first_name, 
+        last_name,
+        role_id,
+        manager_id
         } = req.body;
-    var params = [employee_firstname, employee_lastname, employee_role, employee_manager];
+    var params = [first_name, last_name,role_id, manager_id];
     db.query(sqlQuery, params, (err, result) => {
         try{
             res.json({

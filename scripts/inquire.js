@@ -9,22 +9,41 @@ const questions = [
     {
         type: "input",
         message: "Enter the first name of the new employee",
-        name: "employee_firstname"
+        name: "first_name"
     },
     {
         type: "input",
         message: "Enter the last name of the new employee",
-        name: "employee_lastname"
+        name: "last_name"
     },
     {
         type: "input",
         message: "Enter the role id",
-        name: "employee_role"
+        name: "role_id"
     },
     {
         type: "input",
         message: "Enter the manager id",
-        name: "employee_manager"
-    }
-
+        name: "manager_id"
+    },
+    {
+        type: "input",
+        message: "Enter the name of the role",
+        name: "role_name"
+    },
+    {
+        type: "input",
+        message: "Enter the salary for this role",
+        name: "salary"
+    },
+    {
+        type: "input",
+        message: "Which department does this role belong to? (Enter the department ID)",
+        name: "department_id"
+    },
+    {
+        type: "input",
+        message: "Enter the name of the department",
+        name: "department_name"
+    },
 ]
