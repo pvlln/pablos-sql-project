@@ -1,49 +1,85 @@
-const questions = [
+const questions = {
+  start: [
     {
+      type: "list",
+      message: "What would you like to do?",
+      choices: [
+        "View all employees",
+        "Add employees",
+        "Update employee role",
+        "View all roles",
+        "Add roles",
+        "View all departments",
+        "Add departments",
+        "Quit",
+      ],
+      name: "Prompt",
+    },
+  ],
+  newEmployee: [
+    {
+      type: "input",
+      message: "Enter the first name of the new employee",
+      name: "first_name",
+    },
+    {
+      type: "input",
+      message: "Enter the last name of the new employee",
+      name: "last_name",
+    },
+    {
+      type: "input",
+      message: "Enter the role id",
+      name: "role_id",
+    },
+    {
+      type: "input",
+      message: "Enter the manager id",
+      name: "manager_id",
+    },
+  ],
+  updateEmployee: (roles) => {
+    return [
+      {
+        type: "input",
+        message: "Enter the ID of the employee you want to update",
+        name: "id",
+      },
+      {
         type: "list",
-        message: 'What would you like to do?',
-        choices: ["View all employees", "Add employees", "Update employee role", "View all roles", 
-        "Add roles", "View all departments", "Add departments", "Quit"],
-        name: "Prompt",
-    },
-    {
-        type: "input",
-        message: "Enter the first name of the new employee",
-        name: "first_name"
-    },
-    {
-        type: "input",
-        message: "Enter the last name of the new employee",
-        name: "last_name"
-    },
-    {
-        type: "input",
-        message: "Enter the role id",
-        name: "role_id"
-    },
-    {
-        type: "input",
-        message: "Enter the manager id",
-        name: "manager_id"
-    },
-    {
+        message: "Assign a new role for this employee",
+        options: roles,
+        name: "role_id",
+      },
+    ];
+  },
+  newRole: (departments) => {
+    return [
+      {
         type: "input",
         message: "Enter the name of the role",
-        name: "role_name"
-    },
-    {
+        name: "role_name",
+      },
+      {
         type: "input",
         message: "Enter the salary for this role",
-        name: "salary"
-    },
+        name: "salary",
+      },
+      {
+        type: "list",
+        message: "Which department does this role belong to?",
+        choices: departments,
+        name: "department_id",
+      },
+    ];
+  },
+  newDepartment: [
     {
-        type: "input",
-        message: "Which department does this role belong to? (Enter the department ID)",
-        name: "department_id"
+      type: "input",
+      message: "Enter the name of the department",
+      name: "department_name",
     },
-    {
-        type: "input",
-        message: "Enter the name of the department",
-        name: "department_name"
-    },
-]
+  ],
+};
+
+module.exports = questions;

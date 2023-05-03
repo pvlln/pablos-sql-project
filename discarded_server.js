@@ -1,9 +1,3 @@
-const express = require('express');
-const inquirer = require('inquirer');
-const mysql = require('mysql2');
-// const {v4: uuidv4} = require('uuid');
-// Import inquirer app- TO DO
-
 const PORT = process.env.PORT || 3001;
 const app = express();
 
@@ -51,8 +45,8 @@ app.post('/api/new-department', ({body}, res) => {
         } catch {
             res.status(400).json({error: err.message});
         }
-    })
-})
+    });
+});
 
 
 // ROLES
@@ -60,7 +54,7 @@ app.post('/api/new-department', ({body}, res) => {
 app.get('/api/roles', (req, res) => {
     var sqlQuery = 'SELECT * FROM roles';
     try{
-        db.query(sqlQuery, (rows) => {
+        db.query(sqlQuery, (err, rows) => {
             res.json({
                 message: "success",
                 data: rows
@@ -85,7 +79,7 @@ app.post('/api/new-role', (req, res) => {
         try{
             res.json({
                 message: 'employee successfully added',
-                data: req.body
+                data: {...req.body, id: result.insertId}
             });
         } catch {
             res.status(400).json({error: err.message});
@@ -130,7 +124,7 @@ app.post('/api/new-employee', (req, res) => {
             res.status(400).json({error: err.message});
         }
     })
-})
+});
 
 // Update employee role
 app.put('/api/employees/:id', (req, res) => {
@@ -151,4 +145,12 @@ app.put('/api/employees/:id', (req, res) => {
         });
       }
     });
-  });
+});
+
+app.use((req, res) => {
+    res.status(404).end();
+});
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
