@@ -13,7 +13,7 @@ const questions = {
         "Add departments",
         "Quit",
       ],
-      name: "Prompt",
+      name: "prompt",
     },
   ],
   newEmployee: [
@@ -48,7 +48,7 @@ const questions = {
       {
         type: "list",
         message: "Assign a new role for this employee",
-        options: roles,
+        choices: roles,
         name: "role_id",
       },
     ];
@@ -77,7 +77,7 @@ const questions = {
     {
       type: "input",
       message: "Enter the name of the department",
-      name: "department_name",
+      name: "name",
     },
   ],
 };

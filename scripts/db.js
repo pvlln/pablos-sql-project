@@ -6,9 +6,9 @@ class CompanyDB {
     this.db = mysql.createConnection(
       {
         host: "127.0.0.1",
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_NAME,
+        user: "root",
+        password: "",
+        database: "company_db",
       },
       console.log(`Connected to the company database.`)
     );
@@ -18,7 +18,7 @@ class CompanyDB {
   // View all departments
   async getDepartments() {
     try {
-      const sqlQuery = "SELECT * FROM departments";
+      const sqlQuery = "SELECT * FROM departments;";
       const [departments] = await this.db.promise().query(sqlQuery);
       return departments;
     } catch (error) {
@@ -28,10 +28,10 @@ class CompanyDB {
   }
 
   // Add department
-  async addDepartment(department_name) {
+  async addDepartment({ name }) {
     try {
-      const sqlQuery = `INSERT INTO departments(department_name) VALUES(?)`;
-      const [result] = await this.db.promise().query(sqlQuery, department_name);
+      const sqlQuery = `INSERT INTO departments(name) VALUES(?);`;
+      const [result] = await this.db.promise().query(sqlQuery, name);
       return result;
     } catch (error) {
       console.log(error);
@@ -43,7 +43,7 @@ class CompanyDB {
   // View all roles
   async getRoles() {
     try {
-      const sqlQuery = "SELECT * FROM roles";
+      const sqlQuery = "SELECT * FROM roles;";
       const [roles] = await this.db.promise().query(sqlQuery);
       return roles;
     } catch (error) {
@@ -53,10 +53,10 @@ class CompanyDB {
   }
 
   // Add new role
-  async addRole({ title, salary, department_id }) {
+  async addRole({ role_name, salary, department_id }) {
     try {
-      const sqlQuery = `INSERT INTO roles(title, salary, department_id) VALUES(?, ?, ?)`;
-      const params = [title, salary, department_id];
+      const sqlQuery = `INSERT INTO roles(title, salary, department_id) VALUES(?, ?, ?);`;
+      const params = [role_name, salary, department_id];
       const [result] = await this.db.promise().query(sqlQuery, params);
       return [result, { ...req.body, id: result.insertId }];
     } catch (error) {
@@ -69,7 +69,7 @@ class CompanyDB {
   // View all employees
   async getEmployees() {
     try {
-      const sqlQuery = "SELECT * FROM employees";
+      const sqlQuery = "SELECT * FROM employees;";
       const [employees] = await this.db.promise().query(sqlQuery);
       return employees;
     } catch (error) {
@@ -79,29 +79,29 @@ class CompanyDB {
   }
 
   // Add employee
-  async addEmployee({first_name, last_name,role_id, manager_id}) {
-      try {
-          const sqlQuery = `INSERT INTO employees(first_name, last_name, role_id, manager_id) VALUES(?, ?, ?, ?)`;
-          const params = [first_name, last_name, role_id, manager_id];
-          const [result] = await this.db.promise().query(sqlQuery, params);
-          return result;
-      } catch (error) {
-          console.log(error);
-          return;
-      }
+  async addEmployee({ first_name, last_name, role_id, manager_id }) {
+    try {
+      const sqlQuery = `INSERT INTO employees(first_name, last_name, role_id, manager_id) VALUES(?, ?, ?, ?);`;
+      const params = [first_name, last_name, role_id, manager_id];
+      const [result] = await this.db.promise().query(sqlQuery, params);
+      return result;
+    } catch (error) {
+      console.log(error);
+      return;
+    }
   }
 
   // Update employee role
-  async updateEmployee({role_id, id}) {
-      try {
-        const sqlQuery = `UPDATE employees SET role_id = ? WHERE id = ?`;
-        const params = [role_id, id];
-        const [result] = await this.db.promise().query(sqlQuery, params);
-        return result;
-      } catch (error) {
-        console.log(error);
-        return;
-      }
+  async updateEmployee({ role_id, id }) {
+    try {
+      const sqlQuery = `UPDATE employees SET role_id = ? WHERE id = ?;`;
+      const params = [role_id, id];
+      const [result] = await this.db.promise().query(sqlQuery, params);
+      return result;
+    } catch (error) {
+      console.log(error);
+      return;
+    }
   }
 }
 
