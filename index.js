@@ -11,6 +11,7 @@ async function runApp() {
   const departments = await db.getDepartments();
   const roles = await db.getRoles();
   const employees = await db.getEmployees();
+  let message = "";
   switch (prompt) {
     case "View all employees":
       console.table(employees);
@@ -21,18 +22,26 @@ async function runApp() {
       console.log(new_employee);
       break;
     case "Update employee role":
-        // use id- to do
-      const new_info = await inquirer.prompt(questions.updateEmployee(roles));
-      const update_employee = await db.updateEmployee(new_info);
-      console.log(update_employee);
+      const employeeOptions = employees.map(({id, first_name, last_name}) => {
+        return {name: `${first_name} ${last_name}`, value: id};
+      })
+      const roleOptions = roles.map(({id,title}) => {
+        return {name: title, value: id};
+      })
+      const new_info = await inquirer.prompt(questions.updateEmployee(employeeOptions, roleOptions));
+      message = await db.updateEmployee(new_info);
+      console.log(message);
       break;
     case "View all roles":
       console.table(roles);
       break;
     case "Add roles":
-      const role_info = await inquirer.prompt(questions.newRole(departments));
-      const update_role = await db.addRole(role_info);
-      console.log(update_role);
+      const deptChoices = departments.map(({id, name}) => {
+        return { name, value: id };
+      });
+      const role_info = await inquirer.prompt(questions.newRole(deptChoices));
+      message = await db.addRole(role_info);
+      console.log(message);
     case "View all departments":
       console.table(departments);
       break;

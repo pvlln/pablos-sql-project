@@ -38,12 +38,13 @@ const questions = {
       name: "manager_id",
     },
   ],
-  updateEmployee: (roles) => {
+  updateEmployee: (employees, roles) => {
     return [
       {
-        type: "input",
-        message: "Enter the ID of the employee you want to update",
+        type: "list",
+        message: "Select the employee you want to update",
         name: "id",
+        choices: employees
       },
       {
         type: "list",

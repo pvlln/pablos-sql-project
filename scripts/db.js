@@ -30,7 +30,7 @@ class CompanyDB {
   // Add department
   async addDepartment({ name }) {
     try {
-      const sqlQuery = `INSERT INTO departments(name) VALUES(?);`;
+      const sqlQuery = `INSERT INTO departments(name) VALUES (?)`;
       const [result] = await this.db.promise().query(sqlQuery, name);
       return result;
     } catch (error) {
@@ -43,7 +43,7 @@ class CompanyDB {
   // View all roles
   async getRoles() {
     try {
-      const sqlQuery = "SELECT * FROM roles;";
+      const sqlQuery = "SELECT * FROM roles";
       const [roles] = await this.db.promise().query(sqlQuery);
       return roles;
     } catch (error) {
@@ -58,10 +58,9 @@ class CompanyDB {
       const sqlQuery = `INSERT INTO roles(title, salary, department_id) VALUES(?, ?, ?);`;
       const params = [role_name, salary, department_id];
       const [result] = await this.db.promise().query(sqlQuery, params);
-      return [result, { ...req.body, id: result.insertId }];
+      return "Role successfully added";
     } catch (error) {
-      console.log(error);
-      return;
+      return "Unable to add role.";
     }
   }
 
@@ -69,7 +68,14 @@ class CompanyDB {
   // View all employees
   async getEmployees() {
     try {
-      const sqlQuery = "SELECT * FROM employees;";
+      const sqlQuery = `SELECT eTable.id, CONCAT(eTable.first_name, ' ', eTable.last_name) as Name, roles.title as Role, roles.salary as Salary, dTable.name as "Department Name", CONCAT(mTable.first_name, ' ', mTable.last_name) as Manager
+      FROM employees as eTable
+      JOIN roles ON
+          eTable.role_id = roles.id
+      JOIN departments as dTable ON
+          roles.department_id = dTable.id
+      LEFT JOIN employees as mTable ON
+          eTable.manager_id = mTable.id;`;
       const [employees] = await this.db.promise().query(sqlQuery);
       return employees;
     } catch (error) {
@@ -97,10 +103,9 @@ class CompanyDB {
       const sqlQuery = `UPDATE employees SET role_id = ? WHERE id = ?;`;
       const params = [role_id, id];
       const [result] = await this.db.promise().query(sqlQuery, params);
-      return result;
+      return "Employee successfully updated.";
     } catch (error) {
-      console.log(error);
-      return;
+      return "Problem updating employee.";
     }
   }
 }
