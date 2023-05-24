@@ -1,3 +1,4 @@
+-- Seed Values: 
 INSERT INTO departments(name)
 VALUES ("Engineering"),
 ("Finance"),

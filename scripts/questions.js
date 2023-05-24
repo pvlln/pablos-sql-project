@@ -1,4 +1,5 @@
 const questions = {
+  // Start inquirer app
   start: [
     {
       type: "list",
@@ -16,6 +17,7 @@ const questions = {
       name: "prompt",
     },
   ],
+  // Questions asked if user selects "add employee"
   newEmployee: [
     {
       type: "input",
@@ -38,6 +40,7 @@ const questions = {
       name: "manager_id",
     },
   ],
+  // Questions asked if user selects "update employee"
   updateEmployee: (employees, roles) => {
     return [
       {
@@ -54,6 +57,7 @@ const questions = {
       },
     ];
   },
+  // Questions asked if user selects "add role"
   newRole: (departments) => {
     return [
       {
@@ -74,6 +78,7 @@ const questions = {
       },
     ];
   },
+  // Questions asked if user selects "add department"
   newDepartment: [
     {
       type: "input",

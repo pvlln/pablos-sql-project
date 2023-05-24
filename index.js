@@ -1,3 +1,4 @@
+// Use necessary packages and libraries
 const express = require("express");
 const inquirer = require("inquirer");
 const mysql = require("mysql2");
@@ -6,12 +7,15 @@ const db = require("./scripts/db.js");
 const { vary } = require("express/lib/response");
 require("console.table");
 
+// Function to start the application
 async function runApp() {
+  // Define scope constants and variables
   const { prompt } = await inquirer.prompt(questions.start);
   const departments = await db.getDepartments();
   const roles = await db.getRoles();
   const employees = await db.getEmployees();
   let message = "";
+  // Switch statement for different employee input scenarios
   switch (prompt) {
     case "View all employees":
       console.table(employees);
@@ -52,7 +56,9 @@ async function runApp() {
     case "Quit":
       process.exit(0);
   }
+  // Run the app init command after iteration
   runApp();
 }
 
+// Run command to start app
 runApp();

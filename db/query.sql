@@ -6,7 +6,3 @@ JOIN departments as dTable ON
     roles.department_id = dTable.id
 LEFT JOIN employees as mTable ON
     eTable.manager_id = mTable.id;
-
-SELECT department.department_id as Department
-FROM roles
-JOIN 

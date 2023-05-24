@@ -1,13 +1,17 @@
+-- Create DB
 DROP DATABASE IF EXISTS company_db;
 CREATE DATABASE company_db;
 
+-- Access DB
 USE company_db;
 
+-- Create department tables
 CREATE TABLE departments (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(30) NOT NULL
 );
 
+-- Create role tables
 CREATE TABLE roles (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(30) NOT NULL,
@@ -16,6 +20,7 @@ CREATE TABLE roles (
     FOREIGN KEY (department_id) REFERENCES departments(id)
 );
 
+-- Create employee tables
 CREATE TABLE employees (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(30) NOT NULL,
@@ -26,5 +31,4 @@ CREATE TABLE employees (
     FOREIGN KEY (manager_id) REFERENCES employees(id)
 );
 
--- Missing: adding manager_id as a foreign key of another element of the same table
 
