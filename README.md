@@ -17,7 +17,7 @@ I created a command line application to access a sql company database. Here, you
 To install this app, you will need to install npm and mysql and be able to access mysql databases. After doing this, you will need to run the commands "source schema.sql" and "source seeds.sql" in your local mysql. Then, you can use the command "npm start" in your command line to start the application. 
 
 Here is a screen recording of my application in action:
-![App demo screen recording](./Screen%20Shot%202023-04-26%20at%209.31.28%20AM.png)
+![App demo screen recording](./assets/Screen%20Recording%202023-05-30%20at%205.34.56%20PM.mov)
 
 
 
