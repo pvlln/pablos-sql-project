@@ -26,8 +26,8 @@ async function runApp() {
       console.log(new_employee);
       break;
     case "Update employee role":
-      const employeeOptions = employees.map(({id, first_name, last_name}) => {
-        return {name: `${first_name} ${last_name}`, value: id};
+      const employeeOptions = employees.map(({id, Name}) => {
+        return {name: Name, value: id};
       })
       const roleOptions = roles.map(({id,title}) => {
         return {name: title, value: id};
@@ -50,9 +50,10 @@ async function runApp() {
       console.table(departments);
       break;
     case "Add departments":
-        const {name} = await inquirer.prompt(questions.newDepartment);
-        const new_department = await db.addDepartment(name);
-        console.log(new_department);
+        const nameObj = await inquirer.prompt(questions.newDepartment);
+        await db.addDepartment(nameObj);
+        console.log("Department added successfully.");
+        break;
     case "Quit":
       process.exit(0);
   }

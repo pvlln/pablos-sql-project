@@ -30,7 +30,7 @@ class CompanyDB {
   // Add department
   async addDepartment({ name }) {
     try {
-      const sqlQuery = `INSERT INTO departments(name) VALUES (?)`;
+      const sqlQuery = `INSERT INTO departments(name) VALUES (?);`;
       const [result] = await this.db.promise().query(sqlQuery, name);
       return result;
     } catch (error) {
